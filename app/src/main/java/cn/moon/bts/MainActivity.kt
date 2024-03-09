@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import java.lang.Exception
 import kotlin.concurrent.thread
 
 private const val TAG = "sherpa-ncnn"
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
         Log.i(TAG, "Start to initialize model")
-        initModel()
+
         Log.i(TAG, "Finished initializing model")
 
         recordButton = findViewById(R.id.record_button)
@@ -79,6 +80,14 @@ class MainActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.my_text)
         textView.movementMethod = ScrollingMovementMethod()
+
+
+        try {
+            initModel()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
     private fun onclick() {

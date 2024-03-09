@@ -5,16 +5,18 @@ plugins {
 
 android {
     namespace 'cn.moon.bts'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "cn.moon.bts"
-        minSdk 21
-        targetSdk 32
+        minSdk 24
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
