@@ -6,15 +6,14 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
-import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import cn.moon.bts.dao.ContentDao
-import cn.moon.bts.dao.ContentDaoImpl
+import cn.moon.bts.dao.ItemDao
+import cn.moon.bts.dao.ItemDaoImpl
 import com.k2fsa.sherpa.ncnn.RecognizerConfig
 import com.k2fsa.sherpa.ncnn.SherpaNcnn
 import com.k2fsa.sherpa.ncnn.getDecoderConfig
@@ -53,27 +52,10 @@ class MainActivity : AppCompatActivity() {
     @Volatile
     private var isRecording: Boolean = false
 
-    private var contentDao:ContentDao = ContentDaoImpl()
+    private var itemDao: ItemDao =
+        ItemDaoImpl()
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        val permissionToRecordAccepted = if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
-            grantResults[0] == PackageManager.PERMISSION_GRANTED
-        } else {
-            false
-        }
 
-        if (!permissionToRecordAccepted) {
-            Log.e(TAG, "Audio record is disallowed")
-            finish()
-        }
-
-        Log.i(TAG, "Audio record is permitted")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,13 +64,11 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
 
-
         recordButton = findViewById(R.id.record_button)
         recordButton.setOnClickListener { onclick() }
 
         textView = findViewById(R.id.my_text)
         textView.movementMethod = ScrollingMovementMethod()
-
 
 
 
@@ -100,10 +80,11 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        val content = contentDao.random()
-        val text = TextUtils.join("\n", content.lines)
-        findViewById<TextView>(R.id.content).text = text
+        val item = itemDao.random()
+        findViewById<TextView>(R.id.content).text = item.content
+        setTitle(item.title)
     }
+
 
     private fun onclick() {
         if (!isRecording) {
@@ -228,5 +209,25 @@ class MainActivity : AppCompatActivity() {
             assetManager = application.assets,
             config = config,
         )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val permissionToRecordAccepted = if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        } else {
+            false
+        }
+
+        if (!permissionToRecordAccepted) {
+            Log.e(TAG, "Audio record is disallowed")
+            finish()
+        }
+
+        Log.i(TAG, "Audio record is permitted")
     }
 }
