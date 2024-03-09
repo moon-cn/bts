@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.SherpaNcnn" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#1961AC</item>
+        <item name="colorPrimaryVariant">#4990CD</item>
+        <item name="colorOnPrimary">#124B93</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">#52C41A</item>
+        <item name="colorSecondaryVariant">#85DB4C</item>
+        <item name="colorOnSecondary">#3AA813</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

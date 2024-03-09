@@ -6,12 +6,15 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import cn.moon.bts.dao.ContentDao
+import cn.moon.bts.dao.ContentDaoImpl
 import com.k2fsa.sherpa.ncnn.RecognizerConfig
 import com.k2fsa.sherpa.ncnn.SherpaNcnn
 import com.k2fsa.sherpa.ncnn.getDecoderConfig
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity() {
 
     @Volatile
     private var isRecording: Boolean = false
+
+    private var contentDao:ContentDao = ContentDaoImpl()
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -95,6 +100,9 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
+        val content = contentDao.random()
+        val text = TextUtils.join("\n", content.lines)
+        textView.text = text
     }
 
     private fun onclick() {
