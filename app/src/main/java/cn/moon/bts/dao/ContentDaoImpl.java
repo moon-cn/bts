@@ -10,12 +10,8 @@ public class ContentDaoImpl implements ContentDao {
 
     @Override
     public Content random() {
-        String str = "床前明月光\n" +
-                "疑是地上霜\n" +
-                "举头望明月\n" +
-                "低头思故乡";
-
-        String[] arr = str.split("\n");
+        String str = "疑是地上霜,床前明月光,举头望明月,低头思故乡";
+        String[] arr = str.split(",");
 
         Content content = new Content();
         content.setLines(Arrays.asList(arr));
