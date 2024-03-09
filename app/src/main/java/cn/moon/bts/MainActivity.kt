@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         val content = contentDao.random()
         val text = TextUtils.join("\n", content.lines)
-        textView.text = text
+        findViewById<TextView>(R.id.content).text = text
     }
 
     private fun onclick() {

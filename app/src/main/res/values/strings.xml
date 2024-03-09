@@ -1,11 +1,5 @@
 <resources>
     <string name="app_name">背天书</string>
-    <string name="hint">
-        床前明月光   \n
-        疑是地上霜   \n
-        举头望明月   \n
-        低头思故乡
-    </string>
     <string name="start">开始</string>
     <string name="stop">停止</string>
 </resources>
