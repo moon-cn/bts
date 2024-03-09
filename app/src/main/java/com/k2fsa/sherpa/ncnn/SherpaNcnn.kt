@@ -1,4 +1,4 @@
-package cn.moon.bts
+package com.k2fsa.sherpa.ncnn
 
 import android.content.res.AssetManager
 

@@ -12,6 +12,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.k2fsa.sherpa.ncnn.RecognizerConfig
+import com.k2fsa.sherpa.ncnn.SherpaNcnn
+import com.k2fsa.sherpa.ncnn.getDecoderConfig
+import com.k2fsa.sherpa.ncnn.getFeatureExtractorConfig
+import com.k2fsa.sherpa.ncnn.getModelConfig
 import java.lang.Exception
 import kotlin.concurrent.thread
 
@@ -71,9 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
-        Log.i(TAG, "Start to initialize model")
 
-        Log.i(TAG, "Finished initializing model")
 
         recordButton = findViewById(R.id.record_button)
         recordButton.setOnClickListener { onclick() }
@@ -82,8 +85,12 @@ class MainActivity : AppCompatActivity() {
         textView.movementMethod = ScrollingMovementMethod()
 
 
+
+
         try {
+            Log.i(TAG, "Start to initialize model")
             initModel()
+            Log.i(TAG, "Finished initializing model")
         }catch (e:Exception){
             e.printStackTrace()
         }
