@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity() {
     // since the AudioRecord.read(float[]) needs API level >= 23
     // but we are targeting API level >= 21
     private val audioFormat = AudioFormat.ENCODING_PCM_16BIT
-    private var idx: Int = 0
-    private var lastText: String = ""
 
     @Volatile
     private var isRecording: Boolean = false
@@ -99,8 +97,6 @@ class MainActivity : AppCompatActivity() {
             recordButton.setText(R.string.stop)
             isRecording = true
             textView.text = ""
-            lastText = ""
-            idx = 0
 
             recordingThread = thread(true) {
                 model.reset(true)
@@ -134,28 +130,14 @@ class MainActivity : AppCompatActivity() {
                     model.decode()
                 }
                 val isEndpoint = model.isEndpoint()
-                val text = model.text
-                var textToDisplay = lastText
 
-                if (text.isNotBlank()) {
-                    if (lastText.isBlank()) {
-                        textToDisplay = "${idx}: ${text}"
-                    } else {
-                        textToDisplay = "${lastText}\n${idx}: ${text}"
-                    }
-                }
 
                 if (isEndpoint) {
                     model.reset()
-                    if (text.isNotBlank()) {
-                        lastText = "${lastText}\n${idx}: ${text}"
-                        textToDisplay = lastText
-                        idx += 1
-                    }
                 }
 
                 runOnUiThread {
-                    textView.text = textToDisplay
+                    textView.text = model.text
                 }
             }
         }
