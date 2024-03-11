@@ -81,8 +81,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         val item = itemDao.random()
+        findViewById<TextView>(R.id.title).text = item.title
+        findViewById<TextView>(R.id.author).text = item.author
         findViewById<TextView>(R.id.content).text = item.content
-        setTitle(item.title)
     }
 
 
