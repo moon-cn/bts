@@ -8,6 +8,6 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public Item random() {
-        return new Item("静夜思", "疑是地上霜,床前明月光,举头望明月,低头思故乡");
+        return new Item("静夜思", "床前明月光\n疑是地上霜\n举头望明月\n低头思故乡");
     }
 }
