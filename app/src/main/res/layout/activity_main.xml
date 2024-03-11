@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="false"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:lineHeight="24sp"
             android:textAlignment="center"
             />
@@ -52,11 +52,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <Button
+            android:id="@+id/speak_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI朗读"
+            android:textColor="@color/white" />
         <Button
             android:id="@+id/record_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/text_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="填字背诵"
             android:textColor="@color/white" />
     </LinearLayout>
 
