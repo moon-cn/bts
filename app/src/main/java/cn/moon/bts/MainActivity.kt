@@ -6,6 +6,7 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.Button
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import cn.moon.bts.dao.ItemDao
 import cn.moon.bts.dao.ItemDaoImpl
+import cn.moon.bts.tool.StrTool
 import com.k2fsa.sherpa.ncnn.RecognizerConfig
 import com.k2fsa.sherpa.ncnn.SherpaNcnn
 import com.k2fsa.sherpa.ncnn.getDecoderConfig
@@ -50,10 +52,9 @@ class MainActivity : AppCompatActivity() {
     @Volatile
     private var isRecording: Boolean = false
 
-    private var itemDao: ItemDao =
-        ItemDaoImpl()
+    private var itemDao: ItemDao = ItemDaoImpl()
 
-
+    private var validator: Validator = Validator();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "Start to initialize model")
             initModel()
             Log.i(TAG, "Finished initializing model")
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.title).text = item.title
         findViewById<TextView>(R.id.author).text = item.author
         findViewById<TextView>(R.id.content).text = item.content
+
+
+        validator.lines.add(item.title);
+        validator.lines.add(item.author);
+        validator.lines.addAll(StrTool.split(item.content))
     }
 
 
@@ -136,8 +142,18 @@ class MainActivity : AppCompatActivity() {
                     model.reset()
                 }
 
+                val text = model.text
+                val ok = validator.validate(text)
+
                 runOnUiThread {
-                    textView.text = model.text
+                    var tip ="错误";
+                    if(ok){
+                        tip = "通过"
+                    }
+
+                    textView.text = "状态：[$text] $tip"
+
+                   findViewById<TextView>(R.id.success_text).text = TextUtils.join("\n",validator.successLines)
                 }
             }
         }
