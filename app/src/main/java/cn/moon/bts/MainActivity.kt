@@ -2,6 +2,7 @@ package cn.moon.bts
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
@@ -16,12 +17,15 @@ import androidx.core.app.ActivityCompat
 import cn.moon.bts.dao.ItemDao
 import cn.moon.bts.dao.ItemDaoImpl
 import cn.moon.bts.tool.StrTool
+import cn.moon.bts.tool.Validator
+import cn.moon.bts.ui.ColorfulTextView
 import com.k2fsa.sherpa.ncnn.RecognizerConfig
 import com.k2fsa.sherpa.ncnn.SherpaNcnn
 import com.k2fsa.sherpa.ncnn.getDecoderConfig
 import com.k2fsa.sherpa.ncnn.getFeatureExtractorConfig
 import com.k2fsa.sherpa.ncnn.getModelConfig
 import java.lang.Exception
+import java.util.Arrays
 import kotlin.concurrent.thread
 
 private const val TAG = "sherpa-ncnn"
@@ -54,7 +58,8 @@ class MainActivity : AppCompatActivity() {
 
     private var itemDao: ItemDao = ItemDaoImpl()
 
-    private var validator: Validator = Validator();
+    private var validator: Validator =
+        Validator();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         recordButton.setOnClickListener { onclick() }
 
         textView = findViewById(R.id.my_text)
-        textView.movementMethod = ScrollingMovementMethod()
 
 
 
@@ -80,14 +84,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val item = itemDao.random()
-        findViewById<TextView>(R.id.title).text = item.title
-        findViewById<TextView>(R.id.author).text = item.author
-        findViewById<TextView>(R.id.content).text = item.content
 
+        val lines = item.split("\n")
 
-        validator.lines.add(item.title);
-        validator.lines.add(item.author);
-        validator.lines.addAll(StrTool.split(item.content))
+        validator.lines.addAll(lines)
+
+        val colorView = findViewById<ColorfulTextView>(R.id.colorText)
+        colorView.setTextLines(lines)
     }
 
 
@@ -146,14 +149,14 @@ class MainActivity : AppCompatActivity() {
                 val ok = validator.validate(text)
 
                 runOnUiThread {
-                    var tip ="错误";
                     if(ok){
-                        tip = "通过"
+                        val lineIndex = validator.lineIndex
+
+                        findViewById<ColorfulTextView>(R.id.colorText).setTextColors(lineIndex-1, Color.BLUE)
                     }
 
-                    textView.text = "状态：[$text] $tip"
+                    textView.text = "当前：${validator.currentLine}\n状态： [$text] "
 
-                   findViewById<TextView>(R.id.success_text).text = TextUtils.join("\n",validator.successLines)
                 }
             }
         }

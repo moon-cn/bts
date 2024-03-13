@@ -13,42 +13,22 @@
         android:orientation="vertical"
        >
 
-        <TextView
-            android:id="@+id/title"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_height="300sp">
+
+
+        <cn.moon.bts.ui.ColorfulTextView
+            android:id="@+id/colorText"
             android:textSize="20sp"
-            android:textAlignment="center"
-            />
-
-        <TextView
-            android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6sp"
-            android:layout_marginBottom="18sp"
-            android:textAlignment="center"
-             />
 
-        <TextView
+            ></cn.moon.bts.ui.ColorfulTextView>
 
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:textSize="18sp"
-            android:lineHeight="24sp"
-            android:textAlignment="center"
-            />
+        </ScrollView>
 
 
-        <TextView
-            android:id="@+id/success_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="false"
-            />
         <TextView
             android:id="@+id/my_text"
             android:layout_width="match_parent"

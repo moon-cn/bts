@@ -1,13 +1,34 @@
 package cn.moon.bts.dao;
 
-import java.util.Arrays;
-
-import cn.moon.bts.domain.Item;
-
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public Item random() {
-        return new Item("静夜思", "唐 李白","床前明月光\n疑是地上霜\n举头望明月\n低头思故乡");
+    public String random() {
+       // return new Item("静夜思", "唐 李白","床前明月光\n疑是地上霜\n举头望明月\n低头思故乡");
+        return "将进酒\n" +"唐 李白\n"+"君不见黄河之水天上来，\n" +
+                "奔流到海不复回。\n" +
+                "君不见高堂明镜悲白发，\n" +
+                "朝如青丝暮成雪。\n" +
+                "人生得意须尽欢，\n" +
+                "莫使金樽空对月。\n" +
+                "天生我材必有用，\n" +
+                "千金散尽还复来。\n" +
+                "烹羊宰牛且为乐，\n" +
+                "会须一饮三百杯。\n" +
+                "岑夫子，丹丘生，\n" +
+                "将进酒，杯莫停。\n" +
+                "与君歌一曲，\n" +
+                "请君为我倾耳听。\n" +
+                "钟鼓馔玉不足贵，\n" +
+                "但愿长醉不复醒。\n" +
+                "古来圣贤皆寂寞，\n" +
+                "惟有饮者留其名。\n" +
+                "陈王昔时宴平乐，\n" +
+                "斗酒十千恣欢谑。\n" +
+                "主人何为言少钱，\n" +
+                "径须沽取对君酌。\n" +
+                "五花马，千金裘，\n" +
+                "呼儿将出换美酒，\n" +
+                "与尔同销万古愁。";
     }
 }
